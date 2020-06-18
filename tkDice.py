@@ -42,37 +42,24 @@ def draw6(canvas):
 
 drawList=(draw1, draw2, draw3, draw4, draw5, draw6)
 
-# creating a class to draw a dice
-
-class Dice(Frame):
-    
-    def __init__(self):
-        super().__init__()
-        self.initUI()
-        
-    def initUI(self):
-        self.master.title("Dice")
-        self.pack(fill=BOTH, expand=1)
-        
-        canvas = Canvas(self)
-        canvas.create_rectangle(10, 10, 210, 210, fill="white")
-        
-        random.choice(drawList)(canvas)
-        
-        canvas.pack(fill=BOTH, expand=1)
-
 def main():
     window = Tk()
+    window.title("tkDice")
     
+    canvas = Canvas()
+    canvas.create_rectangle(10, 10, 210, 210, fill="white")
+    random.choice(drawList)(canvas)
+    canvas.pack(fill=BOTH, expand=0)
+
     def roll():
-        Tk.update_idletasks(window)
-        window.after(10, Dice)
+        canvas.delete("all")
+        canvas.create_rectangle(10, 10, 210, 210, fill="white")
+        random.choice(drawList)(canvas)
 
     button = Button(window, text="Reroll", command = roll)
-    button.pack(fill=BOTH, expand=1)
-    dice = Dice()
+    button.pack(fill=BOTH, expand=0)
     
-    window.geometry("220x255")
+    window.geometry("220x300")
     window.resizable(width=False, height=False)
     window.mainloop()
 
